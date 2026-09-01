@@ -6,6 +6,8 @@ import { getDatesWithTours, getCancelledBookings } from "@/lib/actions/tours";
 import { getSession } from "@/lib/auth";
 import { getPermissions } from "@/lib/permissions";
 
+export const dynamic = "force-dynamic";
+
 export default async function CancellationsPage() {
   const user = await getSession();
   if (!user) notFound();

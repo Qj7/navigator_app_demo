@@ -8,6 +8,8 @@ import { getSession } from "@/lib/auth";
 import { getPermissions } from "@/lib/permissions";
 import { formatDateParam, formatDisplayDate, parseDateParam } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 type PageProps = {
   params: Promise<{ date: string }>;
 };
@@ -76,8 +78,4 @@ export default async function DayPage({ params }: PageProps) {
       </div>
     </AppShell>
   );
-}
-
-export async function generateStaticParams() {
-  return [];
 }

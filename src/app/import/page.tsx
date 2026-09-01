@@ -5,6 +5,8 @@ import { AppShell } from "@/components/AppShell";
 import { ImportForm } from "@/components/ImportForm";
 import { getSession } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
+
 export default async function ImportPage() {
   const user = await getSession();
   if (!user) notFound();

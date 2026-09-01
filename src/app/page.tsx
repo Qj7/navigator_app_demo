@@ -2,6 +2,8 @@ import { redirect } from "next/navigation";
 import { formatDateParam } from "@/lib/utils";
 import { getDatesWithTours } from "@/lib/actions/tours";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const dates = await getDatesWithTours();
 
