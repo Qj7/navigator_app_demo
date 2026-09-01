@@ -21,21 +21,18 @@ type BookingTableProps = {
   canAddBooking: boolean;
 };
 
-const STICKY_HEAD = "bg-slate-100";
-const STICKY_HEAD_SUB = "bg-slate-50";
+const HEAD = "bg-slate-100";
+const HEAD_SUB = "bg-slate-50";
 
-/** Fixed-width sticky block: # | Отель | Имя | взр | дет | Телефон */
-const STICKY = {
-  num: "sticky left-0 z-30 w-10",
-  hotel: "sticky left-10 z-30 w-[120px]",
-  name: "sticky left-[160px] z-30 w-[100px]",
-  adults: "sticky left-[260px] z-30 w-12",
-  children: "sticky left-[308px] z-30 w-12",
-  phone:
-    "sticky left-[356px] z-30 w-[120px] shadow-[4px_0_8px_-4px_rgba(0,0,0,0.12)]",
+/** Column widths: # | Отель | Имя | взр | дет | Телефон */
+const COL = {
+  num: "w-10",
+  hotel: "w-[120px]",
+  name: "w-[100px]",
+  adults: "w-12",
+  children: "w-12",
+  phone: "w-[120px]",
 } as const;
-
-const STICKY_CORNER = "z-40";
 
 export function BookingTable({
   tourId,
@@ -103,9 +100,8 @@ export function BookingTable({
                   <th
                     className={cn(
                       "px-2 py-2.5 text-center font-semibold",
-                      STICKY_HEAD,
-                      STICKY.num,
-                      STICKY_CORNER,
+                      HEAD,
+                      COL.num,
                     )}
                   >
                     #
@@ -113,9 +109,8 @@ export function BookingTable({
                   <th
                     className={cn(
                       "px-3 py-2.5 text-left font-semibold",
-                      STICKY_HEAD,
-                      STICKY.hotel,
-                      STICKY_CORNER,
+                      HEAD,
+                      COL.hotel,
                     )}
                   >
                     Отель
@@ -123,19 +118,16 @@ export function BookingTable({
                   <th
                     className={cn(
                       "px-3 py-2.5 text-left font-semibold",
-                      STICKY_HEAD,
-                      STICKY.name,
-                      STICKY_CORNER,
+                      HEAD,
+                      COL.name,
                     )}
                   >
                     Имя
                   </th>
                   <th
                     className={cn(
-                      "px-2 py-2.5 text-center font-semibold",
-                      STICKY_HEAD,
-                      "sticky left-[260px] z-30 w-24",
-                      STICKY_CORNER,
+                      "w-24 px-2 py-2.5 text-center font-semibold",
+                      HEAD,
                     )}
                     colSpan={2}
                   >
@@ -144,52 +136,47 @@ export function BookingTable({
                   <th
                     className={cn(
                       "px-3 py-2.5 text-left font-semibold",
-                      STICKY_HEAD,
-                      STICKY.phone,
-                      STICKY_CORNER,
+                      HEAD,
+                      COL.phone,
                     )}
                   >
                     Телефон
                   </th>
-                  <th className={cn("w-16 px-2 py-2.5 text-center font-semibold", STICKY_HEAD)}>
+                  <th className={cn("w-16 px-2 py-2.5 text-center font-semibold", HEAD)}>
                     Комн.
                   </th>
-                  <th className={cn("w-16 px-2 py-2.5 text-center font-semibold", STICKY_HEAD)}>
+                  <th className={cn("w-16 px-2 py-2.5 text-center font-semibold", HEAD)}>
                     Выезд
                   </th>
-                  <th className={cn("w-20 px-2 py-2.5 text-center font-semibold", STICKY_HEAD)}>
+                  <th className={cn("w-20 px-2 py-2.5 text-center font-semibold", HEAD)}>
                     Стоим.
                   </th>
-                  <th className={cn("px-2 py-2.5 text-center font-semibold", STICKY_HEAD)} colSpan={3}>
+                  <th className={cn("px-2 py-2.5 text-center font-semibold", HEAD)} colSpan={3}>
                     Оплата
                   </th>
-                  <th className={cn("min-w-[140px] px-3 py-2.5 text-left font-semibold", STICKY_HEAD)}>
+                  <th className={cn("min-w-[140px] px-3 py-2.5 text-left font-semibold", HEAD)}>
                     Адрес отеля
                   </th>
-                  <th className={cn("w-20 px-2 py-2.5 text-center font-semibold", STICKY_HEAD)}>
+                  <th className={cn("w-20 px-2 py-2.5 text-center font-semibold", HEAD)}>
                     Bill&apos;s
                   </th>
-                  <th className={cn("min-w-[90px] px-2 py-2.5 text-left font-semibold", STICKY_HEAD)}>
+                  <th className={cn("min-w-[90px] px-2 py-2.5 text-left font-semibold", HEAD)}>
                     Менеджер
                   </th>
-                  <th className={cn("min-w-[100px] px-3 py-2.5 text-left font-semibold", STICKY_HEAD)}>
+                  <th className={cn("min-w-[100px] px-3 py-2.5 text-left font-semibold", HEAD)}>
                     Примечание
                   </th>
                   {hasActions && (
-                    <th className={cn("w-20 px-2 py-2.5 text-center font-semibold", STICKY_HEAD)} />
+                    <th className={cn("w-20 px-2 py-2.5 text-center font-semibold", HEAD)} />
                   )}
                 </tr>
                 <tr className="border-b border-slate-200 bg-slate-50 text-[11px] text-slate-500">
-                  <th
-                    colSpan={3}
-                    className={cn(STICKY_HEAD_SUB, "sticky left-0 z-30 bg-slate-50")}
-                  />
+                  <th colSpan={3} className={HEAD_SUB} />
                   <th
                     className={cn(
                       "px-2 py-1 text-center font-medium",
-                      STICKY_HEAD_SUB,
-                      STICKY.adults,
-                      STICKY_CORNER,
+                      HEAD_SUB,
+                      COL.adults,
                     )}
                   >
                     взр
@@ -197,30 +184,24 @@ export function BookingTable({
                   <th
                     className={cn(
                       "px-2 py-1 text-center font-medium",
-                      STICKY_HEAD_SUB,
-                      STICKY.children,
-                      STICKY_CORNER,
+                      HEAD_SUB,
+                      COL.children,
                     )}
                   >
                     дет
                   </th>
-                  <th
-                    className={cn(STICKY_HEAD_SUB, STICKY.phone, STICKY_CORNER)}
-                  />
-                  <th colSpan={3} className={cn(STICKY_HEAD_SUB, "bg-slate-50")} />
-                  <th className={cn("px-2 py-1 text-center font-medium", STICKY_HEAD_SUB, "bg-slate-50")}>
+                  <th className={cn(HEAD_SUB, COL.phone)} />
+                  <th colSpan={3} className={HEAD_SUB} />
+                  <th className={cn("px-2 py-1 text-center font-medium", HEAD_SUB)}>
                     депозит
                   </th>
-                  <th className={cn("px-2 py-1 text-center font-medium", STICKY_HEAD_SUB, "bg-slate-50")}>
+                  <th className={cn("px-2 py-1 text-center font-medium", HEAD_SUB)}>
                     $ гиду
                   </th>
-                  <th className={cn("px-2 py-1 text-center font-medium", STICKY_HEAD_SUB, "bg-slate-50")}>
+                  <th className={cn("px-2 py-1 text-center font-medium", HEAD_SUB)}>
                     VND
                   </th>
-                  <th
-                    colSpan={hasActions ? 5 : 4}
-                    className={cn(STICKY_HEAD_SUB, "bg-slate-50")}
-                  />
+                  <th colSpan={hasActions ? 5 : 4} className={HEAD_SUB} />
                 </tr>
               </thead>
               <tbody>
@@ -241,7 +222,7 @@ export function BookingTable({
                         <td
                           className={cn(
                             "px-2 py-2 text-center text-slate-400",
-                            STICKY.num,
+                            COL.num,
                             bg,
                           )}
                         >
@@ -250,7 +231,7 @@ export function BookingTable({
                         <td
                           className={cn(
                             "truncate px-3 py-2 font-medium text-slate-800",
-                            STICKY.hotel,
+                            COL.hotel,
                             bg,
                           )}
                         >
@@ -259,7 +240,7 @@ export function BookingTable({
                         <td
                           className={cn(
                             "truncate px-3 py-2 text-slate-800",
-                            STICKY.name,
+                            COL.name,
                             bg,
                           )}
                         >
@@ -268,7 +249,7 @@ export function BookingTable({
                         <td
                           className={cn(
                             "px-2 py-2 text-center font-medium",
-                            STICKY.adults,
+                            COL.adults,
                             bg,
                           )}
                         >
@@ -277,7 +258,7 @@ export function BookingTable({
                         <td
                           className={cn(
                             "px-2 py-2 text-center font-medium",
-                            STICKY.children,
+                            COL.children,
                             bg,
                           )}
                         >
@@ -286,7 +267,7 @@ export function BookingTable({
                         <td
                           className={cn(
                             "truncate px-3 py-2 whitespace-nowrap text-slate-600",
-                            STICKY.phone,
+                            COL.phone,
                             bg,
                           )}
                         >
