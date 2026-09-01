@@ -10,6 +10,7 @@ import {
   ChevronsRight,
 } from "lucide-react";
 import { DatePickerButton } from "@/components/DatePickerButton";
+import { useDateNavigation } from "@/components/DateNavigationProvider";
 import { cn, formatDateParam, formatDateTab } from "@/lib/utils";
 
 type DateTabsProps = {
@@ -49,6 +50,7 @@ function ScrollButton({
 
 export function DateTabs({ dates, activeDate }: DateTabsProps) {
   const pathname = usePathname();
+  const { isNavigating, startNavigation } = useDateNavigation();
   const isCancellations = pathname === "/cancellations";
 
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -119,8 +121,23 @@ export function DateTabs({ dates, activeDate }: DateTabsProps) {
     }
   };
 
+  const handleNavigate = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isNavigating) {
+      e.preventDefault();
+      return;
+    }
+    const href = e.currentTarget.getAttribute("href");
+    if (href === pathname) return;
+    startNavigation();
+  };
+
   return (
-    <div className="shrink-0 border-t border-slate-200 bg-white shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
+    <div
+      className={cn(
+        "shrink-0 border-t border-slate-200 bg-white shadow-[0_-4px_20px_rgba(0,0,0,0.06)]",
+        isNavigating && "pointer-events-none",
+      )}
+    >
       <div className="mx-auto max-w-[1600px]">
         <div className="flex items-center gap-1 px-2 py-2">
           <div className="flex shrink-0 items-center">
@@ -168,6 +185,8 @@ export function DateTabs({ dates, activeDate }: DateTabsProps) {
                       key={dateStr}
                       ref={isActive ? activeRef : undefined}
                       href={`/${param}`}
+                      onClick={handleNavigate}
+                      prefetch
                       className={cn(
                         "shrink-0 rounded-lg px-3 py-2 text-sm font-medium whitespace-nowrap transition-colors sm:px-4",
                         isActive
@@ -208,6 +227,8 @@ export function DateTabs({ dates, activeDate }: DateTabsProps) {
 
           <Link
             href="/cancellations"
+            onClick={handleNavigate}
+            prefetch
             className={cn(
               "shrink-0 rounded-lg px-3 py-2 text-sm font-medium whitespace-nowrap transition-colors sm:px-4",
               isCancellations

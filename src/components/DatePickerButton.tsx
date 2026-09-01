@@ -16,6 +16,7 @@ import {
 } from "date-fns";
 import { ru } from "date-fns/locale";
 import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
+import { useDateNavigation } from "@/components/DateNavigationProvider";
 import { cn, formatDateParam, parseDateParam } from "@/lib/utils";
 
 const WEEKDAYS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
@@ -26,6 +27,7 @@ type DatePickerButtonProps = {
 
 export function DatePickerButton({ activeDate }: DatePickerButtonProps) {
   const router = useRouter();
+  const { isNavigating, startNavigation } = useDateNavigation();
   const containerRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [viewDate, setViewDate] = useState(() =>
@@ -71,6 +73,8 @@ export function DatePickerButton({ activeDate }: DatePickerButtonProps) {
   const today = new Date();
 
   const handlePick = (day: Date) => {
+    if (isNavigating) return;
+    startNavigation();
     router.push(`/${formatDateParam(day)}`);
     setOpen(false);
   };
@@ -80,12 +84,14 @@ export function DatePickerButton({ activeDate }: DatePickerButtonProps) {
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
+        disabled={isNavigating}
         title="Перейти к дате"
         aria-label="Перейти к дате"
         aria-expanded={open}
         aria-haspopup="dialog"
         className={cn(
           "flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors",
+          isNavigating && "cursor-not-allowed opacity-40",
           open
             ? "bg-slate-100 text-slate-800"
             : "hover:bg-slate-100 hover:text-slate-800 active:bg-slate-200",
@@ -143,6 +149,7 @@ export function DatePickerButton({ activeDate }: DatePickerButtonProps) {
                 <button
                   key={day.toISOString()}
                   type="button"
+                  disabled={isNavigating}
                   onClick={() => handlePick(day)}
                   className={cn(
                     "flex h-9 items-center justify-center rounded-lg text-sm transition-colors",
