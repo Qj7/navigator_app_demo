@@ -1,15 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  Calendar,
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
+import { DatePickerButton } from "@/components/DatePickerButton";
 import { cn, formatDateParam, formatDateTab } from "@/lib/utils";
 
 type DateTabsProps = {
@@ -49,7 +49,6 @@ function ScrollButton({
 
 export function DateTabs({ dates, activeDate }: DateTabsProps) {
   const pathname = usePathname();
-  const router = useRouter();
   const isCancellations = pathname === "/cancellations";
 
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -118,11 +117,6 @@ export function DateTabs({ dates, activeDate }: DateTabsProps) {
         el.scrollBy({ left: page, behavior: "smooth" });
         break;
     }
-  };
-
-  const handleDatePick = (value: string) => {
-    if (!value) return;
-    router.push(`/${value}`);
   };
 
   return (
@@ -208,26 +202,7 @@ export function DateTabs({ dates, activeDate }: DateTabsProps) {
 
           <div className="mx-0.5 h-6 w-px shrink-0 bg-slate-200" />
 
-          <label
-            title="Перейти к дате"
-            className="relative flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-800 active:bg-slate-200"
-          >
-            <Calendar className="pointer-events-none h-4 w-4" aria-hidden />
-            <input
-              type="date"
-              value={activeDate ?? ""}
-              onChange={(e) => handleDatePick(e.target.value)}
-              onClick={(e) => {
-                try {
-                  e.currentTarget.showPicker?.();
-                } catch {
-                  // showPicker may throw outside a user gesture in some browsers
-                }
-              }}
-              aria-label="Перейти к дате"
-              className="absolute inset-0 h-full w-full cursor-pointer opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:m-0 [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:p-0 [&::-webkit-datetime-edit]:hidden"
-            />
-          </label>
+          <DatePickerButton activeDate={activeDate} />
 
           <div className="mx-0.5 h-6 w-px shrink-0 bg-slate-200" />
 
