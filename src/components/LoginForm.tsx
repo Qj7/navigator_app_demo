@@ -2,7 +2,8 @@
 
 import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { MapPin, AlertCircle } from "lucide-react";
+import { AlertCircle } from "lucide-react";
+import { AppLogo } from "@/components/AppLogo";
 import { loginAction, type LoginState } from "@/lib/actions/auth";
 
 export function LoginForm() {
@@ -23,9 +24,7 @@ export function LoginForm() {
     <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-600 text-white">
-            <MapPin className="h-6 w-6" />
-          </div>
+          <AppLogo size={48} className="mx-auto mb-4 rounded-xl" />
           <h1 className="text-2xl font-bold text-slate-900">Navigator Tour</h1>
           <p className="mt-1 text-sm text-slate-500">Войдите в журнал бронирований</p>
         </div>

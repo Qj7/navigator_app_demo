@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { MapPin, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
+import { AppLogo } from "@/components/AppLogo";
 import type { SessionUser } from "@/lib/auth";
 import { ROLE_LABELS } from "@/lib/auth";
 import { logout } from "@/lib/actions/auth";
@@ -13,9 +14,7 @@ export function Header({ user }: HeaderProps) {
     <header className="z-40 shrink-0 border-b border-slate-200 bg-white/90 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-[1600px] items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white">
-            <MapPin className="h-4 w-4" />
-          </div>
+          <AppLogo size={32} />
           <div>
             <p className="text-sm font-bold leading-tight text-slate-900">
               Navigator Tour
