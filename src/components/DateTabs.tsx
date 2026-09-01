@@ -54,7 +54,6 @@ export function DateTabs({ dates, activeDate }: DateTabsProps) {
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef<HTMLAnchorElement>(null);
-  const dateInputRef = useRef<HTMLInputElement>(null);
 
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -124,11 +123,6 @@ export function DateTabs({ dates, activeDate }: DateTabsProps) {
   const handleDatePick = (value: string) => {
     if (!value) return;
     router.push(`/${value}`);
-  };
-
-  const openDatePicker = () => {
-    dateInputRef.current?.showPicker?.();
-    dateInputRef.current?.click();
   };
 
   return (
@@ -214,25 +208,28 @@ export function DateTabs({ dates, activeDate }: DateTabsProps) {
 
           <div className="mx-0.5 h-6 w-px shrink-0 bg-slate-200" />
 
-          <div className="relative shrink-0">
+          <div className="relative h-8 w-8 shrink-0">
+            <span
+              className="pointer-events-none flex h-8 w-8 items-center justify-center rounded-lg text-slate-500"
+              aria-hidden
+            >
+              <Calendar className="h-4 w-4" />
+            </span>
             <input
-              ref={dateInputRef}
               type="date"
               value={activeDate ?? ""}
               onChange={(e) => handleDatePick(e.target.value)}
-              className="pointer-events-none absolute inset-0 opacity-0"
-              tabIndex={-1}
-              aria-hidden
-            />
-            <button
-              type="button"
-              onClick={openDatePicker}
+              onClick={(e) => {
+                try {
+                  e.currentTarget.showPicker?.();
+                } catch {
+                  // showPicker may throw outside a user gesture in some browsers
+                }
+              }}
               title="Перейти к дате"
               aria-label="Перейти к дате"
-              className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-800"
-            >
-              <Calendar className="h-4 w-4" />
-            </button>
+              className="absolute inset-0 cursor-pointer opacity-0"
+            />
           </div>
 
           <div className="mx-0.5 h-6 w-px shrink-0 bg-slate-200" />
