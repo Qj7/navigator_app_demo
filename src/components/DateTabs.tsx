@@ -208,13 +208,11 @@ export function DateTabs({ dates, activeDate }: DateTabsProps) {
 
           <div className="mx-0.5 h-6 w-px shrink-0 bg-slate-200" />
 
-          <div className="relative h-8 w-8 shrink-0">
-            <span
-              className="pointer-events-none flex h-8 w-8 items-center justify-center rounded-lg text-slate-500"
-              aria-hidden
-            >
-              <Calendar className="h-4 w-4" />
-            </span>
+          <label
+            title="Перейти к дате"
+            className="relative flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-800 active:bg-slate-200"
+          >
+            <Calendar className="pointer-events-none h-4 w-4" aria-hidden />
             <input
               type="date"
               value={activeDate ?? ""}
@@ -226,11 +224,10 @@ export function DateTabs({ dates, activeDate }: DateTabsProps) {
                   // showPicker may throw outside a user gesture in some browsers
                 }
               }}
-              title="Перейти к дате"
               aria-label="Перейти к дате"
-              className="absolute inset-0 cursor-pointer opacity-0"
+              className="absolute inset-0 h-full w-full cursor-pointer opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:m-0 [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:p-0 [&::-webkit-datetime-edit]:hidden"
             />
-          </div>
+          </label>
 
           <div className="mx-0.5 h-6 w-px shrink-0 bg-slate-200" />
 

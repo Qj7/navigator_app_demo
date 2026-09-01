@@ -62,7 +62,7 @@ node scripts/setup-supabase-env.mjs "YOUR_DB_PASSWORD"
 
 | Переменная | Описание |
 |------------|----------|
-| `DATABASE_URL` | Supabase pooler URL (из `.env`) |
+| `DATABASE_URL` | Supabase **transaction** pooler URL — port **6543** with `?pgbouncer=true&connection_limit=1` (не session pooler 5432) |
 | `AUTH_SECRET` | Секрет для JWT-сессий |
 | `NEXT_PUBLIC_SUPABASE_URL` | `https://nynbxynddxxevkcsuuog.supabase.co` |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | anon public key |
